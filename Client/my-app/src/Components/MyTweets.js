@@ -15,7 +15,7 @@ function MyTweets() {
     const fetchMyTweets = async () => {
         try {
             // Make API request to fetch your tweets
-            const response = await axios.get('http://localhost:5000/api/mytweets', {
+            const response = await axios.get('http://localhost:5000/tweets', {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -46,8 +46,8 @@ function MyTweets() {
                     <div>
                         <h2>My Tweets</h2>
                         {myTweets.length > 0 ? (
-                            myTweets.map((tweet, index) => (
-                                <TweetCard key={index} tweet={tweet} />
+                            myTweets.map((tweet) => (
+                                <TweetCard key={tweet._id} tweet={tweet} />
                             ))
                         ) : (
                             <p>No tweets found</p>

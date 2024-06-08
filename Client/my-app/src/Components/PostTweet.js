@@ -5,11 +5,17 @@ import { useDropzone } from 'react-dropzone';
 
 function PostTweet() {
     const [tweetContent, setTweetContent] = useState('');
+    const [tweetHeader, setTweetHeader] = useState(''); // New state for tweet header
     const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState('');
 
     const handleInputChange = (event) => {
-        setTweetContent(event.target.value);
+        const { id, value } = event.target;
+        if (id === 'tweetContent') {
+            setTweetContent(value);
+        } else if (id === 'tweetHeader') { // Handle change for tweet header
+            setTweetHeader(value);
+        }
     };
 
     const handleDrop = (acceptedFiles) => {
@@ -31,20 +37,30 @@ function PostTweet() {
                 imageUrl = cloudinaryResponse.data.secure_url;
             }
 
-            // Make API request to post tweet
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found');
+                return;
+            }
+
+            // Make API request to post tweet with Authorization header and header field
             await axios.post(
                 'http://localhost:5000/posttweet',
-                { content: tweetContent, imageUrl: imageUrl },
-                { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
+                {
+                    header: tweetHeader, // Include tweet header in the request body
+                    content: tweetContent,
+                    imageUrl,
+                },
+                { headers: { 'Authorization': `Bearer ${token}` } }
             );
+
             // Clear input fields after posting tweet
             setTweetContent('');
+            setTweetHeader(''); // Clear header input
             setImage(null);
-            setImagePreview(''); // Clear image preview
-            // Optionally, you can show a success message or update state to trigger a refresh of the tweet feed
+            setImagePreview('');
         } catch (error) {
             console.error('Error posting tweet:', error);
-            // Optionally, you can show an error message to the user
         }
     };
 
@@ -58,6 +74,16 @@ function PostTweet() {
         <div>
             <h2>Post a Tweet</h2>
             <form onSubmit={handleSubmit}>
+                <TextField
+                    id="tweetHeader" // New input for tweet header
+                    label="Enter tweet header"
+                    variant="outlined"
+                    value={tweetHeader}
+                    onChange={handleInputChange}
+                    fullWidth
+                    required
+                    style={{ marginBottom: '10px' }}
+                />
                 <TextField
                     id="tweetContent"
                     label="Enter your tweet"
