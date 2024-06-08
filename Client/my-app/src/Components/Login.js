@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
@@ -6,25 +7,28 @@ function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Basic validation (add your own validation logic)
-        if (!username || !password) {
-        setErrorMessage('Both fields are required');
-        return;
+        try {
+            // Basic validation (add your own validation logic)
+    
+            const response = await axios.post('http://localhost:5000/login', {
+                username,
+                password,
+            });
+
+    
+            // If login is successful, store the token in local storage
+            localStorage.setItem('token', response.data.token);
+    
+            //route to home
+            navigate('/');
+        } catch (error) {
+            console.log(error);
         }
-
-        // Handle login logic (e.g., send data to the server)
-        console.log('Logging in with:', { username, password });
-
-        // Clear form after submission
-        setUsername('');
-        setPassword('');
-        setErrorMessage('');
     };
 return (
     <div>
@@ -50,7 +54,6 @@ return (
                 required
             />
             </div>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
             <button type="submit">Login</button>
             <button onClick={()=>navigate('/register')}>Register</button>
         </form>

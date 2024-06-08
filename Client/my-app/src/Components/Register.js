@@ -26,6 +26,9 @@ function Register() {
             password,
             });
 
+            // If login is successful, store the token in local storage
+            localStorage.setItem('token', response.data.token);
+            
             navigate('/');
         } catch (error) {
             console.log(error)
