@@ -132,6 +132,7 @@ app.get('/tweets', authenticate, async (req, res) => {
         const tweets = await Tweet.find().populate('user', 'username');
         res.status(200).json(tweets);
     } catch (error) {
+        console.error('Error fetching tweets:', error);
         res.status(500).json({ error: 'Error fetching tweets' });
     }
 });
@@ -206,20 +207,6 @@ app.get('/me/following', authenticate, async (req, res) => {
 });
 
 
-
-// Endpoint to fetch the authenticated user's details
-app.get('/me', authenticate, async (req, res) => {
-    try {
-        const userId = req.user.userId;
-        const user = await User.findById(userId, 'username');
-        res.status(200).json(user);
-    } catch (error) {
-        console.error('Error fetching current user details:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
-
 // Endpoint to get the list of users followed by the current user
 app.get('/following', authenticate, async (req, res) => {
     try {
@@ -232,5 +219,74 @@ app.get('/following', authenticate, async (req, res) => {
     } catch (error) {
         console.error('Error fetching following list:', error);
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+
+// Endpoint to delete a tweet
+app.delete('/tweet/:id', authenticate, async (req, res) => {
+    try {
+        const tweetId = req.params.id;
+        const userId = req.user.userId; // Get user ID from authenticated user
+
+        console.log(tweetId);
+        console.log(userId);
+
+        // Find the tweet by ID and ensure it belongs to the authenticated user
+        const tweet = await Tweet.findOneAndDelete({ _id: tweetId, user: userId });
+
+        if (!tweet) {
+            return res.status(404).json({ error: 'Tweet not found or not authorized to delete' });
+        }
+
+        res.status(200).json({ message: 'Tweet deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting tweet:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+// Endpoint to update a tweet
+app.put('/tweets/:id', authenticate, async (req, res) => {
+    try {
+        const tweetId = req.params.id;
+        const { header, content } = req.body;
+        const userId = req.user.userId; // Get user ID from authenticated user
+
+        // Find the tweet by ID and ensure it belongs to the authenticated user
+        const tweet = await Tweet.findOneAndUpdate(
+            { _id: tweetId, user: userId },
+            { header: header, content: content },
+            { new: true } // Return the updated tweet
+        );
+
+        if (!tweet) {
+            return res.status(404).json({ error: 'Tweet not found or not authorized to update' });
+        }
+
+        res.status(200).json({ message: 'Tweet updated successfully', tweet });
+    } catch (error) {
+        console.error('Error updating tweet:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+// Endpoint to get tweets of the logged-in user
+app.get('/mytweets', authenticate, async (req, res) => {
+    try {
+        const userId = req.user.userId; // Get user ID from authenticated user
+
+        // Fetch tweets for the logged-in user
+        const tweets = await Tweet.find({ user: userId }).populate('user', 'username');
+
+        res.status(200).json(tweets);
+    } catch (error) {
+        console.error('Error fetching tweets:', error);
+        res.status(500).json({ error: 'Error fetching tweets' });
     }
 });
