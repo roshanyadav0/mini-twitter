@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+
 // Register endpoint
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
@@ -78,4 +79,3 @@ app.post('/login', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
 });
-

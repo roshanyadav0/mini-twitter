@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from './Components/Login';
 import Home from './Components/Home';
 import Register from './Components/Register';
-import { isAuthenticated } from './auth'; // Assuming `auth.js` manages token logic
+import { isAuthenticated } from './auth'; 
+import Post from './Components/Post';
+import Users from './Components/Users';
 
 const isAuth = isAuthenticated();
 
@@ -16,6 +18,8 @@ root.render(
       {isAuth ? (
         <>
           <Route path="/" element={<Home />} />
+          <Route path="/post" element={<Post />} />
+          <Route path="/users" element={<Users/>} />
         </>
       ) : (
         <>
@@ -23,7 +27,6 @@ root.render(
           <Route path="/register" element={<Register />} />
         </>
       )}
-      {/* Fallback route for undefined paths */}
       <Route path="*" element={isAuth ? <Home/> : <Login/>} />
     </Routes>
   </BrowserRouter>

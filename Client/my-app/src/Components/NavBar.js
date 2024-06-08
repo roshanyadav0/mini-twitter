@@ -1,14 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import '../Css/NavBar.css'
 
 function NavBar() {
     const navigate = useNavigate();
-
-    const token = localStorage.getItem('token');
-
-    console.log(token);
 
     const handleLogout = () => {
         // Clear authentication token from local storage
@@ -16,14 +12,12 @@ function NavBar() {
         navigate('/');
         };
 return (
-    <div>
+    <div className='nav-bar'>
         <h1>Mini Twitter</h1>
-        <Stack spacing={2} direction="row">
-            <Button variant="outlined">Text</Button>
-            <Button variant="outlined">Contained</Button>
-            <Button variant="outlined">Outlined</Button>
-        </Stack>
-        <button onClick={handleLogout}>LogOut</button>
+        <Button onClick={()=>navigate('/')}>Home</Button>
+        <Button onClick={()=>navigate('/post')}>Post</Button>
+        <Button onClick={()=>navigate('/users')}>Users</Button>
+        <Button onClick={handleLogout}>LogOut</Button>
     </div>
 )
 }
