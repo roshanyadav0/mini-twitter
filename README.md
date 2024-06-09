@@ -10,4 +10,4 @@
 # Frontend Deployment on Netlify
 
 
-# Frontend Deployment Link =
+# Frontend Deployment Link = https://mini-twitter-01.netlify.app/
