@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, List, ListItem, ListItemText } from '@mui/material';
 
+const backendUrl = "https://mini-twitter-vaau.onrender.com";
+
 function FollowingList() {
     const [users, setUsers] = useState([]);
     const [following, setFollowing] = useState([]);
@@ -14,7 +16,7 @@ function FollowingList() {
     // Fetch all users (for demonstration purposes; in a real app, this would be more refined)
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/users', {
+            const response = await axios.get(`${backendUrl}/users`, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             setUsers(response.data);
@@ -26,7 +28,7 @@ function FollowingList() {
     // Fetch the authenticated user's following list
     const fetchFollowing = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/me/following', {
+            const response = await axios.get(`${backendUrl}/me/following`, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             setFollowing(response.data.following);
@@ -38,7 +40,7 @@ function FollowingList() {
     // Follow a user
     const followUser = async (userId) => {
         try {
-            await axios.post(`http://localhost:5000/follow/${userId}`, {}, {
+            await axios.post(`${backendUrl}/follow/${userId}`, {}, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             fetchFollowing(); // Update the following list
@@ -50,7 +52,7 @@ function FollowingList() {
     // Unfollow a user
     const unfollowUser = async (userId) => {
         try {
-            await axios.post(`http://localhost:5000/unfollow/${userId}`, {}, {
+            await axios.post(`${backendUrl}/unfollow/${userId}`, {}, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             fetchFollowing(); // Update the following list

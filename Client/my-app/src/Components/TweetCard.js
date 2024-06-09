@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import axios from 'axios';
 
+const backendUrl = "https://mini-twitter-vaau.onrender.com";
+
 function TweetCard({ tweet, onDelete, onUpdate }) {
     const [editing, setEditing] = useState(false);
     const [editedHeader, setEditedHeader] = useState(tweet.header);
@@ -22,7 +24,7 @@ const handleSaveEdit = async () => {
     try {
         const token = localStorage.getItem('token'); // Retrieve authentication token
         await axios.put(
-            `http://localhost:5000/tweets/${tweet._id}`,
+            `${backendUrl}/tweets/${tweet._id}`,
             {
                 header: editedHeader,
                 content: editedContent
@@ -44,7 +46,7 @@ const handleSaveEdit = async () => {
 const handleDelete = async () => {
     try {
         const token = localStorage.getItem('token'); // Retrieve authentication token
-        await axios.delete(`http://localhost:5000/tweet/${tweet._id}`, {
+        await axios.delete(`${backendUrl}/tweet/${tweet._id}`, {
             headers: {
                 'Authorization': `Bearer ${token}` // Include the token in the headers
             }

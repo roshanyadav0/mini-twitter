@@ -4,6 +4,8 @@ import axios from 'axios';
 import PostTweet from './PostTweet';
 import TweetCard from './TweetCard';
 
+const backendUrl = "https://mini-twitter-vaau.onrender.com";
+
 function MyTweets() {
     const [myTweets, setMyTweets] = useState([]);
     const [showPostTweet, setShowPostTweet] = useState(false);
@@ -15,7 +17,7 @@ function MyTweets() {
     const fetchMyTweets = async () => {
         try {
             // Make API request to fetch tweets of the logged-in user
-            const response = await axios.get(`http://localhost:5000/mytweets`, {
+            const response = await axios.get(`${backendUrl}/mytweets`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }

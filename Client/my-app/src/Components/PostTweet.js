@@ -3,6 +3,8 @@ import { Button, TextField } from '@mui/material';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 
+const backendUrl = "https://mini-twitter-vaau.onrender.com";
+
 function PostTweet() {
     const [tweetContent, setTweetContent] = useState('');
     const [tweetHeader, setTweetHeader] = useState(''); // New state for tweet header
@@ -45,7 +47,7 @@ function PostTweet() {
 
             // Make API request to post tweet with Authorization header and header field
             await axios.post(
-                'http://localhost:5000/posttweet',
+                `${backendUrl}/posttweet`,
                 {
                     header: tweetHeader, // Include tweet header in the request body
                     content: tweetContent,

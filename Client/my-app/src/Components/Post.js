@@ -6,14 +6,13 @@ import TweetCard from './TweetCard';
 import FollowingList from './FollowingList';
 import axios from 'axios';
 
+const backendUrl = "https://mini-twitter-vaau.onrender.com";
+
 function Post() {
     const [view, setView] = useState('tweets');
     const [tweets, setTweets] = useState([]); // Initialize as an empty array
     const [loading, setLoading] = useState(false);
     const [followingList, setFollowingList] = useState([]);
-
-
-
 
     const getUserIdFromToken = (token) => {
         try {
@@ -87,7 +86,7 @@ function Post() {
     const fetchTweets = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:5000/tweets', {
+            const response = await axios.get(`${backendUrl}/tweets`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
@@ -114,7 +113,7 @@ function Post() {
 
     const fetchFollowingList = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/following', {
+            const response = await axios.get(`${backendUrl}/following`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }

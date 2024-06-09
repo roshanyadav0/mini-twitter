@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
+const backendUrl = "https://mini-twitter-vaau.onrender.com";
+
 function Login() {
     const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ function Login() {
         try {
             // Basic validation (add your own validation logic)
     
-            const response = await axios.post('http://localhost:5000/login', {
+            const response = await axios.post(`${backendUrl}/login`, {
                 username,
                 password,
             });

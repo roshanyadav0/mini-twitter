@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const backendUrl = "https://mini-twitter-vaau.onrender.com";
+
 function Register() {
 
     const navigate = useNavigate();
@@ -20,7 +22,7 @@ function Register() {
 
         try {
             // Send a POST request to the backend server
-            const response = await axios.post('http://localhost:5000/register', {
+            const response = await axios.post(`${backendUrl}/register`, {
             username,
             email,
             password,
