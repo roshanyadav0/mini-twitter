@@ -14,8 +14,10 @@ const JWT_SECRET = 'your_jwt_secret_key';
 app.use(cors());
 app.use(bodyParser.json());
 
+const mongoUrl = "mongodb+srv://ry9826653:123456789987654321@cluster0.q1bdkdy.mongodb.net/mini-twitter"
+
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/register-app', {
+mongoose.connect(`${mongoUrl}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
