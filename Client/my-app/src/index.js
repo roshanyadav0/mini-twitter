@@ -28,7 +28,7 @@ root.render(
           <Route path="/register" element={<Register />} />
         </>
       )}
-      <Route path="*" element={isAuth ? <Home/> : <Login/>} />
+      <Route path="/" element={isAuth ? <Home/> : <Login/>} />
     </Routes>
   </BrowserRouter>
 );

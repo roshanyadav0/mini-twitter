@@ -9,6 +9,7 @@ function NavBar() {
     const handleLogout = () => {
         // Clear authentication token from local storage
         localStorage.removeItem('token');
+        navigate('/login');
         navigate(0);
         };
 return (
