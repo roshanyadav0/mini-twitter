@@ -85,20 +85,25 @@ const handleDelete = async () => {
                     </div>
                 </div>
             ) : (
-                <div>
-                    <h3>{tweet.header}</h3>
-                    <p>{tweet.content}</p>
-                    {tweet.imageUrl && <img src={tweet.imageUrl} alt="Tweet" style={{ maxHeight: '200px' }} />}
-                    <p><strong>Posted by:</strong> {tweet.user.username}</p>
-                    <p><strong>Posted on:</strong> {new Date(tweet.createdAt).toLocaleString()}</p>
-                    <div className='tweet-card-buttons'>
-                        <Button onClick={handleEdit} variant="contained" color="primary">
-                            Edit
-                        </Button>
-                        <Button onClick={handleDelete} variant="contained" color="secondary">
-                            Delete
-                        </Button>
+                <div className='tweet-card'>
+                    <div>
+                        <h3>{tweet.header}</h3>
+                            <p>{tweet.content}</p>
+                            <p><strong>Posted by:</strong> {tweet.user.username}</p>
+                            <p><strong>Posted on:</strong> {new Date(tweet.createdAt).toLocaleString()}</p>
+                            <div className='tweet-card-buttons'>
+                                <Button onClick={handleEdit} variant="contained" color="primary">
+                                    Edit
+                                </Button>
+                                <Button onClick={handleDelete} variant="contained" color="secondary">
+                                    Delete
+                                </Button>
+                        </div>
                     </div>
+                    <div>
+                        {tweet.imageUrl && <img src={tweet.imageUrl} alt="Tweet" style={{ maxHeight: '200px' }} />}
+                    </div>
+                    
                 </div>
             )}
         </div>

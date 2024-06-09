@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../Css/Login.css'
 
 const backendUrl = "https://mini-twitter-vaau.onrender.com";
