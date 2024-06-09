@@ -42,8 +42,8 @@ function MyTweets() {
 
     useEffect(() => {
         fetchMyTweets();
-    }, []);
-    
+    }, [fetchMyTweets]);
+
     return (
         <div>
             <div>
