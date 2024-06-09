@@ -13,6 +13,8 @@ function Post() {
     const [followingList, setFollowingList] = useState([]);
 
 
+
+
     const getUserIdFromToken = (token) => {
         try {
             const payload = token.split('.')[1]; // JWT payloads are Base64 encoded
@@ -29,6 +31,46 @@ function Post() {
     const token = localStorage.getItem('token');
     const userId = getUserIdFromToken(token);
 
+    console.log(userId);
+
+    const setDataInOrder = (array) => {
+        // Initialize an empty array to hold the filtered data
+        let filteredArray = [];
+    
+        console.log('User ID from token:', userId);
+        console.log('Original Tweets Array:', array);
+    
+        const followingSet = new Set(followingList);
+
+        // Iterate over the input array
+        for (let i = array.length - 1; i >= 0; i--) {
+            const tweet = array[i];
+            const tweetUserId = tweet.user ? tweet.user._id : null;
+
+            console.log(`Processing tweet with userId: ${tweetUserId}`);
+
+            // Check if tweet user ID is valid, doesn't match logged-in user,
+            // AND the user ID is present in the following set
+            if (tweetUserId && tweetUserId !== userId && followingSet.has(tweetUserId)) {
+            filteredArray.push(tweet);
+            console.log('Added to filtered array:', tweet);
+            } else {
+            console.log('Skipped tweet:', tweet);
+            }
+        }
+
+        // Return the filtered array
+        console.log('Filtered Array:', filteredArray);
+
+        console.log(followingList);
+
+
+        return filteredArray;
+    };
+    
+
+
+
     const handleViewTweets = () => {
         setView('tweets');
         fetchTweets();
@@ -42,65 +84,32 @@ function Post() {
         setView('following');
     };
 
-    // const fetchTweets = async () => {
-    //     try {
-    //         setLoading(true);
-    //         const response = await axios.get('http://localhost:5000/tweets', {
-    //             headers: {
-    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //             }
-    //         });
-
-    //         // Log the response data to inspect it
-    //         console.log('Tweets response:', response.data);
-
-    //         setTweets(response.data);
-
-    //         console.log(userId);
-    //         // Filter out the logged-in user from the list of users
-    //         const filteredUsers = response.data.filter(user => user._id !== userId);
-            
-    //         console.log('Filtered Users:', filteredUsers);
-    
-    //         setTweets(filteredUsers);
-
-    //     } catch (error) {
-    //         console.error('Error fetching tweets:', error);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
     const fetchTweets = async () => {
-            try {
+        try {
             setLoading(true);
             const response = await axios.get('http://localhost:5000/tweets', {
                 headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
             });
-        
+    
             console.log('Tweets response:', response.data);
-        
-            const tweets = response.data; // Store the fetched data
-        
-            // Filter out the logged-in user (choose one option below):
-        
-            // Option 1: Keep the filtered data (display only filtered tweets):
-            const filteredUsers = tweets.filter(user => user._id !== userId);
-            setTweets(filteredUsers);
-        
-            // Option 2: Don't filter twice (use the original data):
-            // No additional filtering needed, use the fetched tweets directly.
-        
-            console.log('Filtered Users (if applicable):', filteredUsers); // Optional
-        
-            } catch (error) {
+    
+            // Use setDataInOrder to filter and order the tweets
+            const orderedTweets = setDataInOrder(response.data);
+    
+            console.log('Filtered and Ordered Tweets:', orderedTweets);
+    
+            // Update the state with the filtered and ordered tweets
+            setTweets(orderedTweets);
+    
+        } catch (error) {
             console.error('Error fetching tweets:', error);
-            } finally {
+        } finally {
             setLoading(false);
-            }
-        };
+        }
+    };
+    
     
 
     const fetchFollowingList = async () => {
