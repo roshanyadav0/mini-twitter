@@ -1,8 +1,6 @@
-*{
-    margin: 5px;
-}
-
 .nav-bar{
     display: flex;
     gap: 30px;
+    background-color: whitesmoke;
+    padding-left: 6vw;
 }

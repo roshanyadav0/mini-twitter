@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import axios from 'axios';
+import '../Css/TweetCard.css'
 
 const backendUrl = "https://mini-twitter-vaau.onrender.com";
 
@@ -90,7 +91,7 @@ const handleDelete = async () => {
                     {tweet.imageUrl && <img src={tweet.imageUrl} alt="Tweet" style={{ maxHeight: '200px' }} />}
                     <p><strong>Posted by:</strong> {tweet.user.username}</p>
                     <p><strong>Posted on:</strong> {new Date(tweet.createdAt).toLocaleString()}</p>
-                    <div>
+                    <div className='tweet-card-buttons'>
                         <Button onClick={handleEdit} variant="contained" color="primary">
                             Edit
                         </Button>

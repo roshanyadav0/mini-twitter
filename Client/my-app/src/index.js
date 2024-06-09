@@ -8,6 +8,7 @@ import Register from './Components/Register';
 import { isAuthenticated } from './auth'; 
 import Post from './Components/Post';
 import Users from './Components/Users';
+import App from './App';
 
 const isAuth = isAuthenticated();
 
@@ -15,22 +16,19 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Routes>
-      {/* <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />}></Route> */}
-      {/* {isAuth ? ( */}
+      {isAuth ? (
         <>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<App />} />
           <Route path="/post" element={<Post />} />
           <Route path="/users" element={<Users/>} />
         </>
-      {/* ) : ( */}
+      ) : (
         <>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </>
-      {/* )} */}
-      {/* <Route path="*" element={isAuth ? <Home/> : <Login/>} /> */}
+      )}
+      <Route path="*" element={isAuth ? <Home/> : <Login/>} />
     </Routes>
   </BrowserRouter>
 );

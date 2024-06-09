@@ -5,6 +5,8 @@ import MyTweets from './MyTweets';
 import TweetCard from './TweetCard';
 import FollowingList from './FollowingList';
 import axios from 'axios';
+import Footer from './Footer';
+import '../Css/Post.css'
 
 const backendUrl = "https://mini-twitter-vaau.onrender.com";
 
@@ -144,7 +146,7 @@ function Post() {
     return (
         <div>
             <NavBar />
-            <div className='post-div'>
+            <div className='post-div main-div-content'>
                 <div className='left-container'>
                     <Button onClick={handleViewTweets}>Tweets</Button>
                     <Button onClick={handleViewMyTweets}>My Tweets</Button>
@@ -152,7 +154,7 @@ function Post() {
                 </div>
                 <div className='right-container'>
                     {view === 'tweets' ? (
-                        <div>
+                        <div className='tweets'>
                             <h2>Latest Tweets from Users You Follow</h2>
                             {loading ? (
                                 <p>Loading tweets...</p>
@@ -173,6 +175,7 @@ function Post() {
                     )}
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

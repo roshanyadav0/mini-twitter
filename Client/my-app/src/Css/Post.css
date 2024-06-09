@@ -1,0 +1,28 @@
+.post-div{
+    display: flex;
+    border: 1px solid black;
+}
+
+.left-container{
+    display: flex;
+    flex-direction: column;
+    width: 15vw;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    gap: 10px;
+}
+
+.right-container{
+    width: 65vw;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.tweets{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+h1{
+    color: rgb(75, 75, 245);
+}
