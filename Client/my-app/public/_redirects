@@ -1,1 +1,8 @@
 /* /index.html 200
+
+# Optionally, handle specific paths differently
+/about    /about.html   200
+/profile    /profile.html   200
+
+# Serve custom 404 page
+/404    /404.html   404
