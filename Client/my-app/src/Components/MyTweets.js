@@ -10,11 +10,7 @@ function MyTweets() {
     const [myTweets, setMyTweets] = useState([]);
     const [showPostTweet, setShowPostTweet] = useState(false);
 
-    useEffect(() => {
-        fetchMyTweets();
-    }, []);
-
-    const fetchMyTweets = async () => {
+const fetchMyTweets = async () => {
         try {
             // Make API request to fetch tweets of the logged-in user
             const response = await axios.get(`${backendUrl}/mytweets`, {
