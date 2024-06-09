@@ -15,22 +15,22 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />}></Route>
-      {isAuth ? (
+      <Route path="/register" element={<Register />}></Route> */}
+      {/* {isAuth ? ( */}
         <>
           <Route path="/" element={<Home />} />
           <Route path="/post" element={<Post />} />
           <Route path="/users" element={<Users/>} />
         </>
-      ) : (
+      {/* ) : ( */}
         <>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </>
-      )}
-      <Route path="*" element={isAuth ? <Home/> : <Login/>} />
+      {/* )} */}
+      {/* <Route path="*" element={isAuth ? <Home/> : <Login/>} /> */}
     </Routes>
   </BrowserRouter>
 );
