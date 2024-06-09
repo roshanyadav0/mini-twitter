@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import '../Css/Login.css'
 
 const backendUrl = "https://mini-twitter-vaau.onrender.com";
@@ -28,7 +28,8 @@ function Login() {
             localStorage.setItem('token', response.data.token);
     
             //route to home
-            navigate('/');
+            navigate(0);
+
         } catch (error) {
             console.log(error);
         }

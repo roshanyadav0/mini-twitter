@@ -31,7 +31,7 @@ function Register() {
             // If login is successful, store the token in local storage
             localStorage.setItem('token', response.data.token);
             
-            navigate('/');
+            navigate(0);
         } catch (error) {
             console.log(error)
         }

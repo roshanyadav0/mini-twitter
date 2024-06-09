@@ -34,7 +34,8 @@ function PostTweet() {
                 // Upload image to Cloudinary
                 const formData = new FormData();
                 formData.append('file', image);
-                formData.append('upload_preset', 'your_cloudinary_upload_preset');
+                formData.append('upload_preset', 'fgtpyebm');
+                formData.append('cloude_name','dav5sgqts')
                 const cloudinaryResponse = await axios.post('https://api.cloudinary.com/v1_1/dav5sgqts/image/upload', formData);
                 imageUrl = cloudinaryResponse.data.secure_url;
             }
