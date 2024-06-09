@@ -10,10 +10,6 @@ function UserList() {
     const [following, setFollowing] = useState([]);
     const [myId, setMyId] = useState(null); // State to store the logged-in user ID
 
-    useEffect(() => {
-        fetchUsers();
-        fetchFollowing();
-    }, []);
 
     // Decode JWT token to get user ID
 const getUserIdFromToken = (token) => {
@@ -65,6 +61,11 @@ const userId = getUserIdFromToken(token);
             console.error('Error fetching following list:', error);
         }
     };
+
+    useEffect(() => {
+        fetchUsers();
+        fetchFollowing();
+    }, [fetchFollowing, fetchUsers]);
 
     useEffect(() => {
         setMyId(localStorage.getItem('userId')); // Set the logged-in user ID when component mounts

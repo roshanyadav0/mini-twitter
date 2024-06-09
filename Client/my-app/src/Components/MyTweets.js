@@ -39,6 +39,11 @@ function MyTweets() {
         setMyTweets(myTweets.filter(tweet => tweet._id !== tweetId));
     };
 
+
+    useEffect(() => {
+        fetchMyTweets();
+    }, []);
+    
     return (
         <div>
             <div>
