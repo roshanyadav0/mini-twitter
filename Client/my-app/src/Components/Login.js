@@ -28,6 +28,7 @@ function Login() {
             localStorage.setItem('token', response.data.token);
     
             //route to home
+            navigate('/');
             navigate(0);
 
         } catch (error) {
